@@ -1,3 +1,7 @@
-*
+/*
+!/*/
 !*.rs
 !.gitignore
+.*.sw?
+Cargo.lock
+target
