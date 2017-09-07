@@ -2,20 +2,22 @@ use std::process::{Command, Stdio};
 use std::io::{Write, self};
 
 fn main() {
-	let mut child = Command::new("/bin/cat")
-		.arg("-n")
+	let child1 = Command::new("/bin/ls")
+		.arg("-l")
 		.stdin(Stdio::piped())
 		.stdout(Stdio::piped())
 		.spawn()
 		.expect("failed to execute");
-	{
-		let child_in = child.stdin.as_mut().expect("failed to get stdin");
-		child_in.write_all(b"test").expect("failed to write");
-	}
+	let child2 = Command::new("/bin/cat")
+		.arg("-n")
+		.stdin(std::process::Stdio::from(child1.stdout.expect("failed to get stdout")))
+		.stdout(Stdio::piped())
+		.spawn()
+		.expect("failed to execute");
 
-	let child_output = child
+	let child_output = child2
 		.wait_with_output()
-		.expect("faild to wait on child");
+		.expect("faild to wait on child2");
 
 
 	let stdout = io::stdout();
