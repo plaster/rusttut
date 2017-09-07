@@ -9,7 +9,7 @@ use rand::Rng;
 fn main() {
     println!("Guess the number!");
 	let secret_number = rand::thread_rng().gen_range(1, 101);
-	println!("Generated secret number: {}", secret_number);
+	// println!("Generated secret number: {}", secret_number);
 
 	loop {
 		print!("input your guess: ");
@@ -20,7 +20,7 @@ fn main() {
 		// println!("you guessed {}", guess);
 		match guess.as_str() {
 			"" => {
-				println!("bye...");
+				println!("OK, the answer is {}. bye...", secret_number);
 				break;
 			},
 			_ => (),
