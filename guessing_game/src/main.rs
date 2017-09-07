@@ -18,6 +18,14 @@ fn main() {
 		io::stdin().read_line(&mut guess)
 			.expect("failed to read line");
 		// println!("you guessed {}", guess);
+		match guess.as_str() {
+			"" => {
+				println!("bye...");
+				break;
+			},
+			_ => (),
+		};
+
 		let guess: u32 = match guess.trim().parse() {
 			Ok(num) => num,
 			Err(msg) => {
@@ -33,6 +41,6 @@ fn main() {
 				println!("Just!");
 				break;
 			},
-		}
+		};
 	}
 }
