@@ -34,5 +34,9 @@ fn next(r: Robot, m: &Move) {
 	};
 }
 
+fn iamhere(r: &Robot) {
+	println!("({}, {})", r.p.0, r.p.1);
+}
+
 fn main() {
 }
