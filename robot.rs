@@ -25,18 +25,24 @@ struct Robot {
 	v: v2,
 }
 
-fn next(r: Robot, m: &Move) {
-	match m {
-		TurnLeft => Robot { v: turn_left(&r.v), ..r },
-		TurnRight => Robot { v: turn_right(&r.v), ..r },
-		Forward => Robot { p: forward(&r.p, &r.v), ..r },
-		Sleep => Robot { ..r },
-	};
-}
-
-fn iamhere(r: &Robot) {
-	println!("({}, {})", r.p.0, r.p.1);
+impl Robot {
+	fn iamhere(&self) {
+		println!("({}, {})", self.p.0, self.p.1);
+	}
+	fn next(&self, m: Move) -> Robot {
+		match m {
+			Move::TurnLeft => Robot { v: turn_left(&self.v), ..self.clone()},
+			Move::TurnRight => Robot { v: turn_right(&self.v), ..self.clone()},
+			Move::Forward => Robot { p: forward(&self.p, &self.v), ..self.clone()},
+			Move::Sleep => Robot { ..self.clone()},
+		}
+	}
 }
 
 fn main() {
+	let r = Robot { p: v2(0, 0), v: v2(1, 0) };
+	r.iamhere();
+	let r2 = r.next(Move::Forward);
+	r2.iamhere();
+	r.iamhere();
 }
