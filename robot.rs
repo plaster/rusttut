@@ -1,3 +1,4 @@
+#[derive(Copy,Clone)]
 enum Move {
 	TurnLeft,
 	TurnRight,
@@ -40,9 +41,26 @@ impl Robot {
 }
 
 fn main() {
-	let r = Robot { p: v2(0, 0), v: v2(1, 0) };
-	r.iamhere();
-	let r2 = r.next(Move::Forward);
-	r2.iamhere();
-	r.iamhere();
+	let mut r = Robot { p: v2(0, 0), v: v2(1, 0) };
+	let moves = [
+		Move::Forward, Move::Forward, Move::Forward, Move::Forward, Move::Forward,
+		Move::TurnLeft,
+		Move::Forward, Move::Forward, Move::Forward, Move::Forward, Move::Forward, Move::Forward,
+		Move::TurnRight,
+		Move::Forward, Move::Forward,
+		Move::TurnLeft,
+		Move::Forward, Move::Forward, Move::Forward, Move::Forward, Move::Forward, Move::Forward, Move::Forward,
+		Move::TurnLeft,
+		Move::Forward, Move::Forward, Move::Forward, Move::Forward,
+		Move::TurnLeft,
+		Move::Forward, Move::Forward, Move::Forward, Move::Forward, Move::Forward, Move::Forward, Move::Forward,
+		Move::Forward, Move::Forward, Move::Forward, Move::Forward, Move::Forward, Move::Forward,
+		Move::TurnRight,
+		Move::Forward, Move::Forward, Move::Forward,
+		Move::Sleep,
+	];
+	for m in moves.iter() {
+		r.iamhere();
+		r = r.next(*m);
+	}
 }
